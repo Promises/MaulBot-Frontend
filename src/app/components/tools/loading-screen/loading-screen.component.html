@@ -1,0 +1,52 @@
+<div *ngIf="!fileUploaded">
+  <h1>Upload LoadingScreen</h1>
+  <label for="file"><p *ngIf="!errorResponse">Image must be 1024x768.</p>
+    <p style="color: red" *ngIf="errorResponse">Image must be 1024x768.</p></label><br>
+  <input id="file" type="file" (change)="onFileSelected($event)">
+  <button type="button" (click)="onUpload()">Upload</button>
+</div>
+<div class="row text-center">
+  <div class="col-md-12 text-info">
+    <a class="btn btn-info" target="_blank"
+       href="https://github.com/Promises/WarcraftMaul/raw/master/RawMapFiles/LoadingScreen.mdx">
+      LoadingScreen.mdx
+    </a>
+  </div>
+</div>
+<div class="row text-center">
+  <div class="col-md-12 text-info">Please allow up to 5 minutes for images to be converted.</div>
+</div>
+<div class="row">
+  <div class="col-md-12 ju">
+    <div class="row text-center">
+      <div class="col-md-3" style="border: 1px solid #cccccc1a;">
+        <p>original image</p>
+      </div>
+      <div class="col-md-3" style="border: 1px solid #cccccc1a;">
+        <p>uploaded</p>
+      </div>
+      <div class="col-md-3" style="border: 1px solid #cccccc1a;">
+        <p>converted</p>
+      </div>
+      <div class="col-md-3" style="border: 1px solid #cccccc1a;">
+        <p>download</p>
+      </div>
+    </div>
+    <div class="row text-center" *ngFor="let ls of uploadedLoadingScreens">
+      <div class="col-md-3" style="border: 1px solid #cccccc1a;">
+        <img [src]="ls.original" [alt]="ls.directory" class="img-thumbnail">
+      </div>
+      <div class="col-md-3" style="border: 1px solid #cccccc1a;">
+        <p>{{ls.date | timeAgo}}</p>
+      </div>
+      <div class="col-md-3" style="border: 1px solid #cccccc1a;">
+        <p *ngIf="ls.converted;else notDone"><i style="color: greenyellow" class="fas fa-check"></i></p>
+        <ng-template #notDone><i style="color: red" class="fas fa-times"></i></ng-template>
+      </div>
+      <div class="col-md-3" style="border: 1px solid #cccccc1a;">
+        <a [href]="ls.zip_file" *ngIf="ls.converted">converted.zip</a>
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>

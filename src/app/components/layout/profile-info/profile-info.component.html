@@ -1,0 +1,99 @@
+<div class="row">
+
+  <div class="col-md-6" *ngIf="profileInfo">
+    <div class="row">
+      <div class="col-md-12">
+        <section widget class="widget">
+
+          <div class="widget-body">
+
+            <div class="row" *ngIf="profileInfo">
+              <div class="col-md-3">
+                <span class="d-flex mr-3 h-100 justify-content-center rounded-circle align-items-center">
+                  <img src="{{djangoClientService.suffix+profileInfo.avatar}}" height="64"
+                       alt="{{ profileInfo.username }}">
+
+                </span>
+              </div>
+              <div class="col-md-6">
+                <h3 class="mt-md mb-xs">{{profileInfo.username}} </h3>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+      <div class="col-md-12" style="padding-top: 2rem">
+        <ng-template #noaddedAccounts>
+          <div class="row justify-content-center">
+            <p><strong>This user has not linked any ingame accounts.</strong></p>
+
+          </div>
+        </ng-template>
+        <ul class="list-group" *ngIf="profileInfo.linkedPlayers; else noaddedAccounts">
+          <li class="list-group-item" *ngFor="let player of profileInfo.linkedPlayers;">
+            <p>Linked ingame account: <span ngClass="approved">{{player.name}}</span></p>
+            <p>Linked realm: <span ngClass="approved">{{getServerLong(player.server)}}</span></p>
+            <p>Overall Rank: <span *ngIf="player.rank; else Unranked"
+                                   [ngClass]="player.rank < 201 ? 'approved' : 'Unapproved'">{{player.rank}}/{{player.total_ranked_players}}</span>
+            </p>
+            <ng-template #Unranked><span class="Unapproved">Unranked/{{player.total_ranked_players}}</span>
+            </ng-template>
+            <p>Experience: <span ngClass="approved">{{format(player.total_exp)}}</span></p>
+            <p>Level: <span ngClass="approved">{{player.total_lvl}}</span></p>
+
+            <p *ngIf="player.token">Verify: write in bnet chat "<span ngClass="{{player.status}}">/w maulbot !verify {{player.token}}</span>"
+            </p>
+            <div class="row">
+              <div class="col-md-2 text-right"><p>LvL {{player.total_lvl}}
+                ({{getExperienceAtlevel(player.total_lvl)}})</p></div>
+              <div class="col-md-8">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar"
+                       [ngStyle]="{'width':getPercent(player)}"
+                       [attr.aria-valuenow]="getPercent(player)" aria-valuemin="0"
+                       aria-valuemax="100">{{getPercent(player)}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 text-left"><p>LvL {{player.total_lvl+1}}
+                ({{getExperienceAtlevel(player.total_lvl+1)}})</p></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" *ngIf="suggestions">
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="far fa-bell"></i> {{profileInfo.username}}'s Suggestions
+      </div>
+      <div class="list-group list-group-flush small scrolly">
+        <!-- Modal -->
+
+        <div *ngFor="let suggestion of suggestions" class="list-group-item list-group-item-action"
+             style="cursor: pointer;"
+             (click)="openById(suggestion.pk)">
+          <div class="media">
+              <span class="d-flex mr-3 rounded-circle  text-center" style="text-align: center;width: 45px;"
+                    [style.color]="getSuggestionColor(suggestion.status)">
+                <i [class]="getSuggestionClass(suggestion.type)"
+                   style="display:inline-block;font-size: 45px;width: 45px;height: 45px;text-align: center;vertical-align: bottom;"
+                   aria-hidden="true"></i>
+              </span>
+            <div class="media-body">
+              <strong>{{ suggestion.title }}</strong>
+              <div class="text-muted smaller">Approved by
+                <b>{{ suggestion.approvedby }}</b>
+                ({{ suggestion.pub_date | timeAgo }})
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ModalEnd -->
+      </div>
+    </div>
+  </div>
+</div>
+

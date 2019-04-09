@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <div class="row">
+        <div class="pull-right text-center col-12" style="margin-top:-2px;">
+          Overall Highscores
+        </div>
+      </div>
+    </h3>
+  </div>
+
+  <div class="table-responsive">
+    <table class="card-body table table-striped" *ngIf="highscores; else elseblock" style="margin-top:0;">
+      <tr class="col-md-12">
+        <th class="smallTd">#</th>
+        <th class="smallTd"></th>
+        <th class="">Username</th>
+        <th class="largeTD" style="text-align:right;">Highest Beaten Diff</th>
+        <th class="smallTd"></th>
+        <th class="smallTd" style="text-align:right;">Level</th>
+        <th class="mediumTD" style="text-align:right;">Experience</th>
+      </tr>
+      <ng-container *ngFor="let player of highscores; let i = index">
+        <tr class="table-hover" *ngIf="shouldShow(i)">
+          <td>{{i+1}}</td>
+          <td><img *ngIf="hasRankIMG(i);else linkedimg" src="{{getRankIMG(i)}}">
+            <ng-template #linkedimg><img *ngIf="player.player.linkedPlayer" height="22"
+                                         src="{{player.player.linkedPlayer.avatar}}"></ng-template>
+          </td>
+          <td *ngIf="player.player.linkedPlayer; else notlinked">
+            <span [ngClass]="{'fourHundredPercent': player.highestDiff==400}"><a
+              [routerLink]="['/user/profile/', player.player.linkedPlayer.username]">{{player.player.linkedPlayer.username}}</a>({{player.name}})</span>
+          </td>
+          <ng-template #notlinked>
+            <td><span [ngClass]="{'fourHundredPercent': player.highestDiff==400}">{{player.name}}</span></td>
+          </ng-template>
+          <td style="text-align:right;" ngClass="{{getDiffColour(player.highestDiff)}}">{{player.highestDiff}}%</td>
+          <td></td>
+          <td style="text-align:right;">{{player.total_lvl}}</td>
+          <td style="text-align:right;">{{format(player.total_exp)}}</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+  <ng-template #elseblock>
+    <div class="col-12 card-body justify-content-center">
+      <app-loading></app-loading>
+    </div>
+  </ng-template>
+  <div class="card-footer">
+    <div class="row justify-content-center">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [rotate]="true" [pageSize]="pageSize"
+                      [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+    </div>
+  </div>
+</div>

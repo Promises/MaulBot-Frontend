@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-12">
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">HCL - HostBot Command Library </h1>
+        <p class="lead text-muted">Reads a command string transparently encoded into player handicaps by hostbots. <br>
+Allows at most one character from "abcdefghijklmnopqrstuvwxyz0123456789 -=,." per player.<br>
+Empty slots don't count towards the player count, but computers do.</p>
+      </div>
+    </section>
+    <div class="row justify-content-center">
+      <div class="col-md-2">
+        <p>Download: <button (click)="downloadFILE()" class="btn btn-info">Here</button></p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6" style="margin: 1rem;border: 1px solid #cccccc1a;">
+        <markdown [data]="markdown"></markdown>
+      </div>
+    </div>
+  </div>
+</div>

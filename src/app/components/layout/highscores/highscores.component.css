@@ -1,0 +1,23 @@
+.smallTd {
+  width: 1rem;
+}
+
+.mediumTD {
+  width: 2rem;
+}
+
+.largeTD {
+  width: 10rem;
+}
+
+.diff-hard {
+  color: #FF0000;
+}
+
+.diff-medium {
+  color: #FFCD00;
+}
+
+.diff-easy {
+  color: #00A651;
+}

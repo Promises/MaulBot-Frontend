@@ -1,0 +1,76 @@
+
+@font-face {
+  font-family: "WC3FONT";
+  src: url("/static/ang/assets/WC3Assets/FRIZQTFont.otf") format("opentype");
+}
+
+.grid-container {
+  display: grid;
+  max-width: 500px;
+  grid-template-columns: 32px 1fr 32px;
+  grid-template-rows: 64px;
+}
+.grid-item {
+
+}
+.item1 {
+  grid-column: 1;
+  background: url('/static/ang/assets/WC3Assets/gluescreen-button1-backdropborder.UKTBZ-flip.png') 0 -128px;
+  grid-row: 1;
+  width: 32px
+}
+.item2 {
+  grid-column: 3;
+  background: url('/static/ang/assets/WC3Assets/gluescreen-button1-backdropborder.UKTBZ-flip.png') 0 -192px;
+  grid-row: 1;
+  width: 32px
+}
+.item3 {
+  grid-column: 2;
+  background: url('/static/ang/assets/WC3Assets/gluescreen-button1-backdropborder.UKTBZ-flip.png') 0 -0px;
+  grid-row: 1;
+  color: yellow;
+}
+.grid-item.item1.active {
+  background: url('/static/ang/assets/WC3Assets/gluescreen-button1-backdropborder-down.rYHUa-flip.png') 0 -128px;
+}
+.grid-item.item2.active {
+  background: url('/static/ang/assets/WC3Assets/gluescreen-button1-backdropborder-down.rYHUa-flip.png') 0 -192px;
+}
+.grid-item.item3.active {
+  background: url('/static/ang/assets/WC3Assets/gluescreen-button1-backdropborder-down.rYHUa-flip.png') 0 -0px;
+}
+.grad1 {
+  position: relative;
+  top: 50%;
+  height: 50%;
+  transform: translateY(-50%);
+}
+.grad2 {
+  position: relative;
+  top: 43%;
+  height: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 2%;
+}
+.grad1:hover {
+  height: 50%;
+  width: 100%;
+  background-image: radial-gradient(#ffffff60 1%, transparent 70%);
+}
+.text-center{
+  font-family: 'WC3FONT';
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}

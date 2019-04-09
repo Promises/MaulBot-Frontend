@@ -1,0 +1,86 @@
+<!--<div *ngIf="selectedSuggestion">-->
+
+  <!--<div class="modal-header">-->
+    <!--<h4 class="modal-title">{{selectedSuggestion.title}}</h4>-->
+    <!--<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Close click')">-->
+      <!--<span aria-hidden="true">&times;</span>-->
+    <!--</button>-->
+  <!--</div>-->
+  <!--<div class="modal-body" *ngIf="selectedSuggestion.text; else loadingSuggestion;">-->
+    <!--<div class="row">-->
+      <!--<div class="col-md-6">-->
+        <!--<p class="lead"><a (click)="activeModal.close('Close click')" [routerLink]="['/user/profile/', selectedSuggestion.submittedby]">{{selectedSuggestion.submittedby}}</a> - {{statusOptions[selectedSuggestion.status]}} </p>-->
+        <!--<form #linkedPlayerForm="ngForm" *ngIf="_authService.isAdmin()">-->
+          <!--<select class="form-check-inline" id="status"-->
+                  <!--required-->
+                  <!--[(ngModel)]="model.status" name="status">-->
+            <!--<option *ngFor="let status of statusTypes; let i = index" [value]="status.id"-->
+                    <!--[attr.selected]="selectedSuggestion.status==status.id ? true : null">{{status.status}}-->
+            <!--</option>-->
+          <!--</select>-->
+          <!--<input class="btn btn-primary" type="submit" (click)="updateSuggestion(); activeModal.close('Close click')"-->
+                 <!--[disabled]="selectedSuggestion.status===model.status" value="Submit"/>-->
+        <!--</form>-->
+      <!--</div>-->
+      <!--<div class="col-md-6">-->
+        <!--<div class="text-right">-->
+          <!--<a type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')" [routerLink]="['/suggestions', selectedSuggestion.pk]">Open full screen</a>-->
+
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<hr>-->
+    <!--<p>Posted on {{selectedSuggestion.pub_date | date:'medium'}}</p>-->
+    <!--<hr>-->
+    <!--<p ng-bind="textFromJSON" style="white-space:pre-wrap">{{selectedSuggestion.text}}</p>-->
+    <!--<hr>-->
+    <!--<div class="card my-4" *ngIf="_authService.loggedIn(); else logInToComment">-->
+      <!--<app-suggestion-comment-form [pk]="selectedSuggestion.pk"-->
+                                   <!--(update)="updateSelectedSuggestion($event)"></app-suggestion-comment-form>-->
+    <!--</div>-->
+    <!--<ng-template #logInToComment>-->
+      <!--<app-log-in-to-comment></app-log-in-to-comment>-->
+    <!--</ng-template>-->
+
+  <!--</div>-->
+  <!--<ng-template #loadingSuggestion>-->
+    <!--<div class="modal-body">-->
+      <!--<div class="col-12 justify-content-center">-->
+        <!--<app-loading></app-loading>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</ng-template>-->
+  <!--<hr>-->
+  <!--<div class="row justify-content-center" [hidden]="!commentUpdating">-->
+    <!--Loading Comments...-->
+  <!--</div>-->
+  <!--<div *ngIf="selectedSuggestion.comments" [hidden]="commentUpdating">-->
+    <!--<div class="row justify-content-center">-->
+      <!--<div class="media mb-4 col-md-11" *ngFor="let comment of selectedSuggestion.comments; let i = index">-->
+            <!--<span class="d-flex mr-3 justify-content-center rounded-circle align-items-center">-->
+              <!--<a (click)="activeModal.close('Close click')" [routerLink]="['/user/profile/', comment.author]"><img src="{{djangoClientService.suffix+comment.avatar}}" height="64" alt="{{ comment.author }}"></a>-->
+            <!--</span>-->
+        <!--<div class="media-body">-->
+          <!--<h5 class="mt-0"><a (click)="activeModal.close('Close click')" [routerLink]="['/user/profile/', comment.author]">{{ comment.author }}</a></h5>-->
+          <!--<p ng-bind="textFromJSON" style="white-space:pre-wrap">{{ comment.text }}</p>-->
+          <!--<div class="text-muted smaller">{{ comment.created_date| date:'medium' }}</div>-->
+          <!--<div class="media mb-4" style="padding-top: 1rem" *ngFor="let reply of comment.replys; let j = index">-->
+                <!--<span class="d-flex mr-3 justify-content-center rounded-circle align-items-center">-->
+                  <!--<a  (click)="activeModal.close('Close click')" [routerLink]="['/user/profile/', reply.author]"><img src="{{djangoClientService.suffix+reply.avatar}}" height="64" alt="{{ reply.author }}"></a>-->
+                <!--</span>-->
+            <!--<div class="media-body">-->
+              <!--<h5 class="mt-0"><a (click)="activeModal.close('Close click')" [routerLink]="['/user/profile/', reply.author]">{{ reply.author }}</a></h5>-->
+              <!--<p ng-bind="textFromJSON" style="white-space:pre-wrap">{{ reply.text }}</p>-->
+              <!--<div class="text-muted smaller">{{ reply.created_date | date:'medium' }}</div>-->
+            <!--</div>-->
+          <!--</div>-->
+
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="modal-footer">-->
+    <!--<button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close</button>-->
+  <!--</div>-->
+<!--</div>-->
+<app-suggestion-detail *ngIf="id" [modal]="true" [activeModal]="activeModal" [id]="id"></app-suggestion-detail>

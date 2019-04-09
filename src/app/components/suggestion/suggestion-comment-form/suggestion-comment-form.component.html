@@ -1,0 +1,14 @@
+<h5 class="card-header">Leave a Comment:</h5>
+<div class="card-body justify-content-center" [hidden]="!submitted">
+  <h2>Submitting...</h2>
+</div>
+<div class="card-body" [hidden]="submitted">
+  <form (ngSubmit)="onSubmit()" #commentForm="ngForm">
+    <div class="form-group">
+        <textarea placeholder="Input your comment here" type="text" rows="3" cols="40" class="form-control" id="text"
+                  [(ngModel)]="formComment.text" name="text" required></textarea>
+    </div>
+    <input class="btn btn-primary" type="submit" (click)="newComment()" [disabled]="!commentForm.form.valid"
+           value="Submit"/>
+  </form>
+</div>

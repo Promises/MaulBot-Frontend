@@ -1,0 +1,24 @@
+<li ngbDropdown class="nav-item dropdown" placement="bottom" *ngIf="loginStatus && notificationMenu">
+  <a [title]="notificationMenu.new +' notifications'"
+     class="nav-link dropdown-toggle"
+     ngbDropdownToggle>
+    <i class="far fa-globe"></i>
+    <span class="count" *ngIf="notificationMenu.new">{{notificationMenu.new}}</span>
+  </a>
+  <div ngbDropdownMenu id="support-menu" role="menu">
+    <mat-list>
+      <h3 mat-subheader>Notifications</h3>
+      <a mat-list-item [ngClass]="{'newSuggestionBG': notification.active }"
+         *ngFor="let notification of notificationMenu.notifications" (click)="clickNotif(notification)"
+         class="dropdown-item support-ticket">
+        <span matListIcon class="badge {{getBadge(notification.title)}}">
+        <i style="width: .5vw;color: white"
+          class="{{getType(notification.title)}}">
+        </i>
+        </span>
+        <h4 mat-line>{{notification.title}}</h4>
+        <p mat-line> {{notification.text}} </p>
+      </a>
+    </mat-list>
+  </div>
+</li>

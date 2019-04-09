@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card card-register mx-auto mt-5">
+      <div class="card-header">Register an Account</div>
+      <div class="card-body">
+        <form class="form" #registartionForm="ngForm" (ngSubmit)="onSubmit()">
+          <div class="text-center" *ngIf="formError">
+            {{formError}}
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label class="required" for="id_username">Username</label>
+                <input class="form-control" type="text"
+                       [(ngModel)]="registerUserData.username"
+                       name="username"
+                       maxlength="150" autofocus
+                       required
+                       id="id_username" aria-describedby="nameHelp"
+                       placeholder="Enter username">
+                <span *ngIf="error">
+
+                <p *ngIf="error.username">
+                  {{error.username}}
+                </p>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id_email">Email</label>
+            <input type="email" name="email"
+                   [(ngModel)]="registerUserData.email"
+                   required id="id_email" class="form-control"
+                   aria-describedby="emailHelp"
+                   placeholder="Enter email">
+            <span *ngIf="error">
+
+            <p *ngIf="error.email">
+              {{error.email}}
+            </p>
+            </span>
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="id_password1">Password</label>
+                <input class="form-control" type="password"
+                       [(ngModel)]="registerUserData.password"
+                       name="password1"
+                       required
+                       id="id_password1"
+                       placeholder="Password">
+                <span *ngIf="error">
+                  <p *ngIf="error.password">
+                    {{error.password}}
+                  </p>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <label for="id_password2">Confirm password</label>
+                <input class="form-control" type="password"
+                       [(ngModel)]="registerUserData.password1"
+                       name="password2"
+                       required
+                       id="id_password2"
+                       [ngClass]="registerUserData.password1 === registerUserData.password? 'pass2-valid' : 'pass2-invalid'"
+                       placeholder="Confirm Password">
+              </div>
+            </div>
+          </div>
+          <input (click)="registerUser()" [disabled]="!registartionForm.form.valid" class="btn btn-primary btn-block" type="submit" value="Register"/>
+
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" routerLink="/login">Login Page</a>
+          <!--<a class="d-block small" href="{% url 'password_reset' %}">Forgot Password?</a>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<div *ngIf="selectedSuggestion">
+
+  <div class="modal-header">
+    <h4 class="modal-title">{{selectedSuggestion.title}}</h4>
+    <button (click)="activeModal.close('Close click')" *ngIf="modal" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="selectedSuggestion.text; else loadingSuggestion;" class="modal-body">
+    <div class="row">
+      <div class="col-md-1">
+        <span class="d-flex mr-3 justify-content-center rounded-circle align-items-center">
+              <a (click)="clickLink()" [routerLink]="['/user/profile/', selectedSuggestion.submittedby]"> <img
+                alt="{{ selectedSuggestion.submittedby }}" height="64"
+                src="{{djangoClientService.suffix+selectedSuggestion.avatar}}"></a>
+            </span>
+      </div>
+      <div class="col-md-5">
+        <p class="lead"><a
+          (click)="clickLink()"
+          [routerLink]="['/user/profile/', selectedSuggestion.submittedby]">{{selectedSuggestion.submittedby}}</a>
+          - {{statusOptions[selectedSuggestion.status]}} </p>
+        <form #linkedPlayerForm="ngForm" *ngIf="_authService.isAdmin()">
+          <select [(ngModel)]="model.status" class="form-check-inline"
+                  id="status"
+                  name="status" required>
+            <option *ngFor="let status of statusTypes; let i = index"
+                    [attr.selected]="selectedSuggestion.status==status.id ? true : null"
+                    [value]="status.id">{{status.status}}
+            </option>
+          </select>
+          <input (click)="updateSuggestion()" [disabled]="selectedSuggestion.status===model.status"
+                 class="btn btn-primary"
+                 type="submit" value="Submit"/>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="text-right">
+          <a (click)="clickLink()" *ngIf="modal" [routerLink]="['/suggestions', selectedSuggestion.pk]"
+             class="btn btn-secondary"
+             type="button">Open full screen</a>
+
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p class="col-md-6 text-muted">Posted on {{selectedSuggestion.pub_date | date:'medium'}}</p>
+    <hr>
+    <div class="card text-white bg-secondary mb-3 ">
+      <div class="card-body ">
+        <p [innerHTML]="selectedSuggestion.text | linkify" class="card-text "
+           style="white-space:pre-wrap">{{selectedSuggestion.text}}</p>
+      </div>
+    </div>
+    <!--<p ng-bind="textFromJSON" class="col-md-12 card-text" style="white-space:pre-wrap"-->
+    <!--[innerHTML]="selectedSuggestion.text | linkify">{{selectedSuggestion.text}}</p>-->
+    <hr>
+    <span *ngIf="selectedSuggestion.updated.substr(0,19) !== selectedSuggestion.pub_date.substr(0,19)">
+      <p class="col-md-6 text-muted">
+        Updated on {{selectedSuggestion.updated | date:'medium'}}
+      </p>
+      <hr>
+  </span>
+    <div *ngIf="_authService.loggedIn(); else logInToComment" class="card my-4">
+      <app-suggestion-comment-form (update)="updateSelectedSuggestion($event)"
+                                   [pk]="selectedSuggestion.pk"></app-suggestion-comment-form>
+    </div>
+    <ng-template #logInToComment>
+      <app-log-in-to-comment></app-log-in-to-comment>
+    </ng-template>
+
+  </div>
+  <ng-template #loadingSuggestion>
+    <div class="modal-body">
+      <div class="col-12 justify-content-center">
+        <app-loading></app-loading>
+      </div>
+    </div>
+  </ng-template>
+  <hr>
+  <div [hidden]="!commentUpdating" class="row justify-content-center">
+    Loading Comments...
+  </div>
+  <div *ngIf="selectedSuggestion.comments" [hidden]="commentUpdating">
+    <div class="row justify-content-center">
+      <div *ngFor="let comment of selectedSuggestion.comments; let i = index" class="media mb-4 col-md-11">
+            <span class="d-flex mr-3 justify-content-center rounded-circle align-items-center">
+              <a (click)="clickLink()" [routerLink]="['/user/profile/', comment.author]"> <img
+                alt="{{ comment.author }}" height="64" src="{{djangoClientService.suffix+comment.avatar}}"></a>
+            </span>
+        <div class="media-body">
+          <h5 class="mt-0"><a (click)="clickLink()"
+                              [routerLink]="['/user/profile/', comment.author]">{{ comment.author }}</a></h5>
+          <p [innerHTML]="comment.text | linkify" ng-bind="textFromJSON"
+             style="white-space:pre-wrap">{{ comment.text }}</p>
+          <div class="text-muted smaller">{{ comment.created_date| date:'medium' }}</div>
+          <div *ngFor="let reply of comment.replys; let j = index" class="media mb-4" style="padding-top: 1rem">
+                <span class="d-flex mr-3 justify-content-center rounded-circle align-items-center">
+                  <a (click)="clickLink()" [routerLink]="['/user/profile/', reply.author]"><img
+                    alt="{{ reply.author }}" height="64" src="{{djangoClientService.suffix+reply.avatar}}"></a>
+                </span>
+            <div class="media-body">
+              <h5 class="mt-0"><a (click)="clickLink()"
+                                  [routerLink]="['/user/profile/', reply.author]">{{ reply.author }}</a></h5>
+              <p [innerHTML]="reply.text | linkify" ng-bind="textFromJSON"
+                 style="white-space:pre-wrap">{{ reply.text }}</p>
+              <div class="text-muted smaller">{{ reply.created_date | date:'medium' }}</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

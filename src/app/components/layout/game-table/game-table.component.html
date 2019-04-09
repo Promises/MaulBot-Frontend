@@ -1,0 +1,74 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fa fa-table"></i> Lobbies
+  </div>
+  <div class="card-body">
+    <div class="card-text text-center">
+      Press the <i class="fas fa-copy"></i> to copy game name.
+    </div>
+    <div class="table-responsive" *ngIf="gamelist; else elseblock">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+          <th>Lobbyname</th>
+          <th>Players</th>
+          <th>Map</th>
+          <th>Online</th>
+          <th>Lobby Created</th>
+        </tr>
+        </thead>
+
+        <tbody id="gametable">
+
+        <ng-container *ngFor="let game of gamelist; let i = index">
+          <tr (click)="setGame(i+1)">
+            <td class="text-info"><i class="fas fa-copy copybutton" (cbOnSuccess)="game.copied = true"
+                                     style="padding-right: 1rem;" [class.isCopied]="game.copied" ngxClipboard
+                                     [cbContent]="cleanString(game.gamename)"></i>{{cleanString(game.gamename)}}
+            </td>
+            <td class="text-primary">{{game.slotstaken}}/{{game.slotstotal}}</td>
+            <td class="text-success">{{getMapName(game.map)}}</td>
+            <td><i style="color: green" class="fas fa-power-off"></i>
+            </td>
+            <td>{{ game.eventtime | timeAgo }}</td>
+          </tr>
+        </ng-container>
+
+        </tbody>
+      </table>
+      <div class="col-md-12" *ngIf="selectedGame">
+        <div class="row justify-content-center">
+          <div class="col-md-5 text-center">
+            <h3>{{gamelist[selectedGame-1].gamename}}</h3>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <ng-container *ngFor="let pn of playersNum">
+              <div style="border-bottom: 1px solid #ffffff1a" class="row"
+                   *ngIf="pn < gamelist[selectedGame-1].slotstotal">
+                <span class="pull-right"><img style="padding-right: 1rem"
+                                              src="https://maulbot.com/media/ReplaceableTextures/TeamColor/TeamColor{{getDoubleDigit(pn)}}.png"></span>
+                <span *ngIf="gamelist[selectedGame-1].players[pn]; else empty">{{gamelist[selectedGame-1].players[pn].username}}</span>
+                <ng-template #empty>Empty</ng-template>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="col-md-4">
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <ng-template #elseblock>
+      <div class="col-12 justify-content-center">
+        <app-loading></app-loading>
+      </div>
+    </ng-template>
+  </div>
+  <div class="card-footer small text-muted">Current Admins: Promises (Northrend), runi95 (Northrend), Beliar[Horror]
+    (Northrend)
+  </div>
+</div>

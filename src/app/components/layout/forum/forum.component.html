@@ -1,0 +1,54 @@
+<div class="card" *ngFor="let cat of categories">
+  <div class="card-header text-white bg-primary">
+    <i class="fas fa-fw fa-scroll-old"></i> {{cat.title}}
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col" class="col-md-1 section"></th>
+        <th scope="col" class="col-md-5 section">Forums</th>
+        <th scope="col" class="col-md-2 section"></th>
+        <th scope="col" class="col-md-4">Last Post</th>
+      </tr>
+      </thead>
+    </table>
+
+    <div class="card forum" *ngFor="let forum of cat.forums">
+      <div class="row no-gutters">
+        <div class="col-md-1 section">
+          <span class="forum-icon">
+            <i class="fas fa-fw fa-home"></i>
+          </span>
+        </div>
+        <div class="col-md-5 section">
+          <div class="card-body">
+            <h5 class="card-title"><a routerLink="/tests">{{forum.title}}</a></h5>
+            <p class="card-text text-muted">{{forum.description}}</p>
+          </div>
+        </div>
+        <div class="col-md-2 section">
+          <div class="card-body">
+            <p class="card-text text-muted">
+              <!--Threads: {{forum.threads}} <br>-->
+              <!--Replies: {{forum.threads}}-->
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 section">
+          <div class="card-body">
+            <!--<span class="card-text">-->
+              <!--<a routerLink="/tests">{{forum.last_post.title}}</a> </span><br>-->
+            <!--<span class="card-text">-->
+              <!--by <a [routerLink]="['/user/profile/', forum.last_post.author]">{{forum.last_post.author}}</a></span><br>-->
+            <!--<div class="card-text text-right" style="width: 100%">-->
+              <!--{{forum.last_post.post_date | date:'medium'}}-->
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

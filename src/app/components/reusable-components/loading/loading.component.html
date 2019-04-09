@@ -1,0 +1,3 @@
+<img *ngIf="production; else debugMode"
+     class="rounded mx-auto d-block" src="/static/ang/assets/img/loading.gif"/>
+<ng-template #debugMode><img class="rounded mx-auto d-block" src="/assets/img/loading.gif"/></ng-template>

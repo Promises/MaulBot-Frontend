@@ -1,0 +1,25 @@
+@font-face { font-family: "OpenSans-Light"; src: url('../fonts/OpenSans-Light.ttf'); }
+html, body { /*font-family: "OpenSans-Light";*/}
+
+.navbar, .navbar-default {
+	border-radius:0;
+	margin:0;
+}
+
+#page-header {
+	background-color: rgba(0, 0, 0, 0.1);
+	padding-top: 75px;
+	padding-bottom: 75px;
+}
+#page-header h1 {
+	margin:0;
+}
+
+#main-body {
+	padding-top: 15px;
+}
+
+img.skill-icon {
+	margin-left: 5px;
+	margin-right: 5px;
+}

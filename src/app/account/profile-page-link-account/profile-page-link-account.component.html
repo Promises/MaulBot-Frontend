@@ -1,0 +1,121 @@
+<section widget class="widget">
+  <div class="card">
+    <div class="card-header">
+      Account settings
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <p>Change Avatar :</p>
+        </div>
+        <div class="col-md-8">
+          <!-- Start Avatar selection -->
+          <ng-template #tipContent><b>{{hoveredAvatar.name}}</b>!<br>
+            <p ng-bind="textFromJSON">{{hoveredAvatar.tooltip}}</p></ng-template>
+          <div class="float-right" *ngIf="this.linkedplayers; else noaddedAccounts">
+            <div class="row justify-content-center">
+
+              <div class="col-md-2 col-lg-2 col-sm-4" style="padding-bottom: 1rem;"
+                   *ngFor="let avatar of selectableAvatars">
+                <span class="d-flex mr-3 h-100 justify-content-center rounded-circle align-items-center">
+                  <img class="avatarIMG" (click)="avatarChangeTo(avatar)" src="{{avatar.link}}" height="64" alt="Test"
+                       (mouseenter)="mouseEnter(avatar)" (mouseleave)="mouseLeave()" data-container="body"
+                       placement="bottom"
+                       [ngbTooltip]="tipContent">
+                </span>
+              </div>
+              <div class="col-md-2 col-lg-2 col-sm-4" style="padding-bottom: 1rem;"
+                   *ngFor="let avatar of selectableSpecialAvatars">
+                <span class="d-flex mr-3 h-100 justify-content-center rounded-circle align-items-center">
+                  <img class="avatarIMG" (click)="avatarSpecialChangeTo(avatar)" src="{{avatar.link}}" height="64"
+                       alt="Test" (mouseenter)="mouseEnter(avatar)" (mouseleave)="mouseLeave()" data-container="body"
+                       placement="bottom"
+                       [ngbTooltip]="tipContent">
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+          <ng-template #noaddedAccounts>
+            <div class="row justify-content-center">
+              <p><strong>Please link an account to unlock avatars.</strong></p>
+
+            </div>
+          </ng-template>
+          <!-- End Avatar Selection -->
+        </div>
+      </div>
+
+
+      <ul class="list-group" *ngIf="linkedplayers">
+        <li class="list-group-item" *ngFor="let player of linkedplayers;">
+          <p>Linked ingame account: <span ngClass="approved">{{player.name}}</span></p>
+          <p>Linked realm: <span ngClass="approved">{{getServerLong(player.server)}}</span></p>
+          <p>Overall Rank: <span *ngIf="player.rank; else Unranked"
+                                 [ngClass]="player.rank < 201 ? 'approved' : 'Unapproved'">{{player.rank}}/{{player.total_ranked_players}}</span>
+          </p>
+          <ng-template #Unranked><span class="Unapproved">Unranked/{{player.total_ranked_players}}</span></ng-template>
+          <p>Status: <span ngClass="{{player.status}}">{{titleCaseWord(player.status)}}</span></p>
+          <p>Experience: <span ngClass="approved">{{format(player.total_exp)}}</span></p>
+          <p>Level: <span ngClass="approved">{{player.total_lvl}}</span></p>
+
+          <p *ngIf="player.token">Verify: write in bnet chat "<span ngClass="{{player.status}}">/w maulbot !verify {{player.token}}</span>"
+          </p>
+          <div class="row">
+            <div class="col-md-2 text-right"><p>LvL {{player.total_lvl}}
+              ({{getExperienceAtlevel(player.total_lvl)}})</p></div>
+            <div class="col-md-3">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar"
+                     [ngStyle]="{'width':getPercent(player)}"
+                     [attr.aria-valuenow]="getPercent(player)" aria-valuemin="0"
+                     aria-valuemax="100">{{getPercent(player)}}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 text-left"><p>LvL {{player.total_lvl+1}}
+              ({{getExperienceAtlevel(player.total_lvl+1)}})</p></div>
+          </div>
+        </li>
+
+
+      </ul>
+      <h5 class="card-header">Link an account:</h5>
+      <div class="card-body justify-content-center" [hidden]="!submitted">
+        <h2>Submitting...</h2>
+      </div>
+      <div class="card-body" [hidden]="submitted">
+
+        <form #linkedPlayerForm="ngForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="name">Username:</label>
+                <input type="text" class="form-control" id="name"
+                       required
+                       [(ngModel)]="model.name" name="name" #name="ngModel">
+
+              </div>
+              <div class="col-md-6">
+                <label for="server">Server:</label>
+                <select class="form-control" id="server"
+                        required
+                        [(ngModel)]="model.server" name="server">
+                  <option *ngFor="let server of servers" [value]="server.SHORT">{{server.LONG}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <input class="btn btn-primary btn-block" type="submit" (click)="newSuggestion()"
+                 [disabled]="!linkedPlayerForm.form.valid" value="Submit"/>
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+
+</section>
+

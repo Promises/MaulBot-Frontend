@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-lg-12">
+    <section widget class="widget">
+
+      <div class="widget-body">
+
+        <div class="row" *ngIf="accountInfo">
+          <div class="col-md-3">
+                <span class="d-flex mr-3 h-100 justify-content-center rounded-circle align-items-center">
+                  <img src="{{djangoClientService.suffix+accountInfo.avatar}}" height="64" alt="{{ accountInfo.username }}">
+
+                </span>
+          </div>
+          <div class="col-md-6">
+            <h3 class="mt-md mb-xs">{{accountInfo.username}} </h3>
+            <address>
+              <abbr title="Work email">e-mail:</abbr> <a href="mailto:#"> {{accountInfo.email}}</a><br>
+            </address>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+  <div class="col-lg-12" style="padding-top: 2rem">
+
+    <app-profile-page-link-account (update)="updateAvatar($event)"></app-profile-page-link-account>
+  </div>
+</div>
+

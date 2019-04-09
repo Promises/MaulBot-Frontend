@@ -1,0 +1,13 @@
+<div style="display: block;" *ngIf="updated;else elseblock">
+  <canvas baseChart  width="100" height="30"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"></canvas>
+
+</div>
+<ng-template #elseblock>
+  <div class="col-12 justify-content-center"><app-loading></app-loading></div>
+</ng-template>

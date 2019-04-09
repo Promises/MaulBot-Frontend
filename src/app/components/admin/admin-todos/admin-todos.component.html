@@ -1,0 +1,146 @@
+<div class="row">
+  <div class="col-12">
+
+
+    <div class="row">
+
+      <div class="col-lg-3">
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-bug"></i> Bugs
+          </div>
+          <div *ngIf="allSuggestions;else loadingUserSuggestions" class="list-group list-group-flush small scrolly">
+            <!-- Modal -->
+            <a *ngFor="let suggestion of allSuggestions.bugReports" class="list-group-item list-group-item-action"
+               (click)="openById(suggestion.pk)">
+              <div class="media">
+              <span class="d-flex mr-3 rounded-circle  text-center" style="text-align: center;width: 45px;"
+                    [style.color]="getSuggestionColor(suggestion.status)">
+                <i [class]="getSuggestionClass(suggestion.type)"
+                   style="display:inline-block;font-size: 45px;width: 45px;height: 45px;text-align: center;vertical-align: bottom;"
+                   aria-hidden="true"></i>
+              </span>
+                <div class="media-body">
+                  <strong>{{ suggestion.submittedby }}</strong> suggested:
+                  <strong>{{ suggestion.title }}</strong>
+                  <div class="text-muted smaller">Approved by
+                    <b>{{ suggestion.approvedby }}</b>
+                    ({{ suggestion.pub_date | timeAgo }})
+                  </div>
+                </div>
+              </div>
+            </a>
+            <!-- ModalEnd -->
+          </div>
+          <ng-template #loadingUserSuggestions>
+            <div class="col-12 justify-content-center">
+              <app-loading></app-loading>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="far fa-code-branch"></i> Improvements
+          </div>
+          <div *ngIf="allSuggestions;else loadingUserSuggestions" class="list-group list-group-flush small scrolly">
+            <!-- Modal -->
+            <a *ngFor="let suggestion of allSuggestions.improvements" class="list-group-item list-group-item-action"
+               (click)="openById(suggestion.pk)">
+              <div class="media">
+              <span class="d-flex mr-3 rounded-circle  text-center" style="text-align: center;width: 45px;"
+                    [style.color]="getSuggestionColor(suggestion.status)">
+                <i [class]="getSuggestionClass(suggestion.type)"
+                   style="display:inline-block;font-size: 45px;width: 45px;height: 45px;text-align: center;vertical-align: bottom;"
+                   aria-hidden="true"></i>
+              </span>
+                <div class="media-body">
+                  <strong>{{ suggestion.submittedby }}</strong> suggested:
+                  <strong>{{ suggestion.title }}</strong>
+                  <div class="text-muted smaller">Approved by
+                    <b>{{ suggestion.approvedby }}</b>
+                    ({{ suggestion.pub_date | timeAgo }})
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <ng-template #loadingUserSuggestions>
+            <div class="col-12 justify-content-center">
+              <app-loading></app-loading>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-align-justify"></i> Unit Texts
+          </div>
+          <div *ngIf="allSuggestions;else loadingUserSuggestions" class="list-group list-group-flush small scrolly">
+            <!-- Modal -->
+            <a *ngFor="let suggestion of allSuggestions.unitText" class="list-group-item list-group-item-action"
+               (click)="openById(suggestion.pk)">
+              <div class="media">
+              <span class="d-flex mr-3 rounded-circle  text-center" style="text-align: center;width: 45px;"
+                    [style.color]="getSuggestionColor(suggestion.status)">
+                <i [class]="getSuggestionClass(suggestion.type)"
+                   style="display:inline-block;font-size: 45px;width: 45px;height: 45px;text-align: center;vertical-align: bottom;"
+                   aria-hidden="true"></i>
+              </span>
+                <div class="media-body">
+                  <strong>{{ suggestion.submittedby }}</strong> suggested:
+                  <strong>{{ suggestion.title }}</strong>
+                  <div class="text-muted smaller">Approved by
+                    <b>{{ suggestion.approvedby }}</b>
+                    ({{ suggestion.pub_date | timeAgo }})
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <ng-template #loadingUserSuggestions>
+            <div class="col-12 justify-content-center">
+              <app-loading></app-loading>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-info"></i> Other
+          </div>
+          <div *ngIf="allSuggestions;else loadingUserSuggestions" class="list-group list-group-flush small scrolly">
+            <!-- Modal -->
+            <a *ngFor="let suggestion of allSuggestions.other" class="list-group-item list-group-item-action"
+               (click)="openById(suggestion.pk)">
+              <div class="media">
+              <span class="d-flex mr-3 rounded-circle  text-center" style="text-align: center;width: 45px;"
+                    [style.color]="getSuggestionColor(suggestion.status)">
+                <i [class]="getSuggestionClass(suggestion.type)"
+                   style="display:inline-block;font-size: 45px;width: 45px;height: 45px;text-align: center;vertical-align: bottom;"
+                   aria-hidden="true"></i>
+              </span>
+                <div class="media-body">
+                  <strong>{{ suggestion.submittedby }}</strong> suggested:
+                  <strong>{{ suggestion.title }}</strong>
+                  <div class="text-muted smaller">Approved by
+                    <b>{{ suggestion.approvedby }}</b>
+                    ({{ suggestion.pub_date | timeAgo }})
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <ng-template #loadingUserSuggestions>
+            <div class="col-12 justify-content-center">
+              <app-loading></app-loading>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

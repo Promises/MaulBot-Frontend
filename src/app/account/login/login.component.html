@@ -1,0 +1,59 @@
+<div class="container">
+
+
+
+  <div class="row mt-2"*ngIf="error">
+    <div class="col" *ngIf="error.non_field_errors">
+      <div class="alert alert-danger" role="alert">
+        {{error.non_field_errors}}
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-login mx-auto mt-5">
+    <div class="card-header">Login</div>
+    <div class="card-body">
+
+
+
+
+      <form method="post" #loginForm="ngForm">
+        <div class="form-group">
+          <label class="required" for="id_username">Username:</label>
+          <input class="form-control" type="text"
+                 [(ngModel)] = "loginUserData.username"
+                 #username="ngModel"
+                 name="username"
+                 maxlength="150" autofocus
+                 required
+                 id="id_username" aria-describedby="nameHelp"
+                 placeholder="Username">
+
+        </div>
+        <div class="form-group">
+          <label for="id_password1">Password:</label>
+          <input class="form-control" type="password"
+                 [(ngModel)] = "loginUserData.password"
+                 name="password1"
+                 required
+                 id="id_password1"
+                 placeholder="Password">
+        </div>
+        <div class="form-group">
+
+        </div>
+        <input (click)="loginUser()" [disabled]="!loginForm.form.valid" class="btn btn-primary btn-block" type="submit" value="Login"/>
+        <!--<input class="btn btn-primary btn-block" type="hidden" name="next" value="{{ next }}"/>-->
+      </form>
+
+
+
+
+
+      <div class="text-center">
+        <a class="d-block small mt-3" routerLink="/register">Register an Account</a>
+        <!--<a class="d-block small"  href="">Forgot Password?</a>-->
+      </div>
+    </div>
+  </div>
+</div>

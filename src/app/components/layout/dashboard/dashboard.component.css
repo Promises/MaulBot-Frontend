@@ -1,0 +1,11 @@
+.dash-header {
+  box-shadow: 0 0 8px 8px #222 inset;
+  padding: 1.4rem;
+  background-position-y: center;
+  background-position-x: center;
+}
+
+.jumbotron {
+  background-color: #303030cc;
+  margin-bottom: 0;
+}

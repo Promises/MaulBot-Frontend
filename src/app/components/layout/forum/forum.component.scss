@@ -1,0 +1,25 @@
+.forum-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 3rem;
+}
+.section {
+  border-right: 1px solid rgba(0,0,0,0.125);
+}
+
+.table thead th {
+  border-bottom: none;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th, .table td {
+
+  border-top: none;
+
+}
+

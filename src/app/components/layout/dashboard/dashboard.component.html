@@ -1,0 +1,56 @@
+<app-admin-status-bar *ngIf="_authService.isAdmin()"></app-admin-status-bar>
+<div class="row">
+  <div class="col-12" *ngIf="selecttedScreenshot">
+    <div class="dash-header" [ngStyle]="{'background-image': selecttedScreenshot}">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7">
+              <h1 class="jumbotron-heading">Maulbot</h1>
+              <p class="lead text-muted">Home of Warcraft Maul: Reimagined</p>
+            </div>
+            <div class="col-md-5" >
+              <div class="row pull-right"  *ngIf="newestMap">
+                <div class="col-md-9">
+                  <p>
+                    <b>Latest Release:</b>
+                  </p>
+                  <p class="text-right">
+                    {{newestMap.title}}<br>
+                    <b>Recommended Players</b>: 8-13<br>
+                    <a [routerLink]="['/blog', newestMap.id]">View Changelog</a>
+                  </p>
+                  <a class="btn btn-primary btn-block" [href]="newestMap.mapfile">Download</a>
+
+                </div>
+                <div class="col-md-3">
+                  <img *ngIf="isProduction; else debugMode" src="/static/ang/assets/img/screenshots/minimap.png"/>
+                  <ng-template #debugMode><img src="/assets/img/screenshots/minimap.png"/></ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--
+          </p>-->
+        </div>
+      </section>
+    </div>
+    <!--<app-game-table></app-game-table>-->
+    <div class="row">
+      <div class="col-12">
+        <!-- Example Bar Chart Card-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-bar-chart"></i> Information
+          </div>
+          <div class="card-body row">
+            <!--<app-game-chart></app-game-chart>-->
+            <div class="col-md-5" [innerHTML]="convertedText"></div>
+            <div class="col-md-4 col-md-offset-2" [innerHTML]="hosts"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

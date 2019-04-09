@@ -1,0 +1,168 @@
+<div class="container" *ngIf="post">
+
+  <div class="row">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-12">
+
+      <!-- Title -->
+      <h1 class="mt-4">{{ post.title }} <a *ngIf="_authService.isAdmin()" class="btn btn-default"
+                                           href="{% url 'polls:blog_edit' pk=post.pk %}"><i
+        class="far fa-edit"></i></a></h1>
+
+      <!-- Author -->
+      <p class="lead">
+        by
+        <a [routerLink]="['/user/profile/', post.username]">{{ post.username }}</a>
+      </p>
+
+      <hr>
+
+      <!-- Date/Time -->
+      <p>Posted on {{ post.published_date | date:'medium' }}</p>
+
+      <hr>
+
+
+      <!-- Post Content -->
+      <p ng-bind="textFromJSON" style="white-space:pre-wrap"><span [innerHTML]="post.text"></span></p>
+      <hr>
+      <span *ngIf="hasfile">
+      Download: <a href="{{ post.mapfile }}">{{ post.filename }}</a>
+      <hr>
+      </span>
+
+      <div class="card my-4">
+        <h5 class="card-header">Leave a Comment:</h5>
+        <div class="card-body justify-content-center" [hidden]="!submitted">
+          <h2>Submitting...</h2>
+        </div>
+        <div class="card-body" [hidden]="submitted">
+          <form (ngSubmit)="onSubmit()" #commentForm="ngForm">
+            <div class="form-group">
+        <textarea placeholder="Input your comment here" type="text" rows="3" cols="40" class="form-control" id="text"
+                  [(ngModel)]="formComment.text" name="text" required></textarea>
+            </div>
+            <input class="btn btn-primary" type="submit" (click)="newComment()" [disabled]="!commentForm.form.valid"
+                   value="Submit"/>
+          </form>
+        </div>
+      </div>
+      <hr>
+
+      <div *ngIf="post.comments">
+        <div class="media mb-4" *ngFor="let comment of post.comments; let i = index">
+                <span class="d-flex mr-3 justify-content-center rounded-circle align-items-center">
+                  <a [routerLink]="['/user/profile/', comment.author]"><img src="{{djangoClientService.suffix+comment.avatar}}" height="64" alt="{{ comment.author }}"></a>
+
+                </span>
+          <div class="media-body">
+            <h5 class="mt-0"><a [routerLink]="['/user/profile/', comment.author]">{{ comment.author }}</a> <!--
+              <a class="btn btn-default"
+                 data-toggle="modal" data-target="#replyModal"
+                 data-to="{{ comment.author }}"
+                 data-id="{{ comment.pk }}"><i
+                class="fas fa-fw fa-reply-all"></i></a> --></h5>
+            <p ng-bind="textFromJSON" style="white-space:pre-wrap">{{ comment.text }}</p>
+            <div class="text-muted smaller">{{ comment.created_date| date:'medium' }}</div>
+            <div class="media mb-4" style="padding-top: 1rem" *ngFor="let reply of comment.replys; let j = index">
+              <span class="d-flex mr-3 justify-content-center rounded-circle align-items-center">
+                <a [routerLink]="['/user/profile/', reply.author]"><img src="{{djangoClientService.suffix+reply.avatar}}" height="64" alt="{{ reply.author }}"></a>
+                </span>
+              <div class="media-body">
+                <h5 class="mt-0"><a [routerLink]="['/user/profile/', reply.author]">{{ reply.author }}</a></h5>
+                <p ng-bind="textFromJSON" style="white-space:pre-wrap">{{ reply.text }}</p>
+                <div class="text-muted smaller">{{ reply.created_date | date:'medium' }}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--
+            {% empty %}
+            <p>No comments yet.</p>
+            {% endfor %}
+            {% comment %}
+            -->
+
+
+      <!--
+
+      <div class="card my-4">
+        <h5 class="card-header">Leave a Comment:</h5>
+        <div class="card-body">
+
+          <form method="POST" class="post-form" action="{% url 'polls:blog_comment' pk=post.pk %}">
+            {% csrf_token %}
+            <div class="form-group">
+              {{ commentform.text }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+      <hr>
+
+
+      {% for comment in post.comments.all %}
+      <div class="media mb-4">
+                    <span class="d-flex mr-3 rounded-circle  text-center"
+                          style="text-align: center;width: 50px;">
+                                                <i class="
+                                                {% if comment.author.is_superuser %}
+                                                fas fa-key
+                                                {% else %}
+                                                fas fa-user
+                                                {% endif %}"
+                                                   style="display:inline-block;font-size: 50px;width: 50px;height: 50px;text-align: center;vertical-align: bottom;"
+                                                   aria-hidden="true"></i>
+                                            </span>
+        <div class="media-body">
+          <h5 class="mt-0">{{ comment.author }} {% if request.user.is_authenticated %}
+            <a class="btn btn-default"
+               data-toggle="modal" data-target="#replyModal"
+               data-to="{{ comment.author }}"
+               data-id="{{ comment.pk }}"><i
+              class="fas fa-fw fa-reply-all"></i></a>{% endif %}</h5>
+          {{ comment.text|linebreaks }}
+          <div class="text-muted smaller">{{ comment.created_date }}</div>
+          {% for reply in comment.replys.all %}
+          <div class="media mb-4" style="padding-top: 1rem">
+                    <span class="d-flex mr-3 rounded-circle  text-center"
+                          style="text-align: center;width: 50px;">
+                                                <i class="
+                                                {% if reply.author.is_superuser %}
+                                                fas fa-key
+                                                {% else %}
+                                                fas fa-user
+                                                {% endif %}"
+                                                   style="display:inline-block;font-size: 50px;width: 50px;height: 50px;text-align: center;vertical-align: bottom;"
+                                                   aria-hidden="true"></i>
+                                            </span>
+            <div class="media-body">
+              <h5 class="mt-0">{{ reply.author }}</h5>
+              {{ reply.text|linebreaks }}
+              <div class="text-muted smaller">{{ reply.created_date }}</div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+      {% empty %}
+      <p>No comments yet.</p>
+      {% endfor %}
+      {% comment %}
+
+      -->
+      <!-- Comments Form -->
+
+
+    </div>
+  </div>
+</div>
+
+
+

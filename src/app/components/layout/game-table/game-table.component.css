@@ -1,0 +1,6 @@
+.isCopied {
+  color: forestgreen;
+}
+.copybutton {
+  cursor: pointer;
+}

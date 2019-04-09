@@ -1,0 +1,6 @@
+<div class="grid-container" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()" (click)="clicked = !clicked">
+  <div class="grid-item item1" [ngClass]="{ 'active': clicked }"></div>
+  <div class="grid-item item2" [ngClass]="{ 'active': clicked }"></div>
+  <div class="grid-item item3" [ngClass]="{ 'active': clicked }"><div class="align-middle text-center" [ngClass]="{ 'grad1': !clicked, 'grad2': clicked }"><span>Hello World</span></div></div>
+</div>
+<img src="/static/ang/assets/WC3Assets/gluescreen-button1-backdropborder-down.rYHUa-flip.png" style="display:none;"/>

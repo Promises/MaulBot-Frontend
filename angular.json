@@ -27,9 +27,14 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/css/darkly/bootstrap.min.css",
+              "src/assets/vendor/css/fontawesome-all.css",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/ace-builds/src-min/theme-dracula.js",
+              "node_modules/ace-builds/src-min/ace.js",
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

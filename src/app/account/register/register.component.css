@@ -1,0 +1,16 @@
+.pass2-valid[required], .pass2-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.pass2-invalid:not(form)  {
+  border-left: 5px solid #a94442!important; /* red */
+}
+
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}

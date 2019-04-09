@@ -1,0 +1,37 @@
+<div class="container blog" *ngIf="posts;else elseblock">
+
+  <div style="margin-bottom: 20px;" *ngIf="_authService.isAdmin()">
+    <div style="float: right;">
+      <a href="/blog/new" class="btn btn-primary btn-block">New Post</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-10 col-md-12 mx-auto"> <!--  style="text-align: center;" -->
+      <div *ngFor="let post of posts; let i = index" class="post-preview">
+        <div *ngIf="shouldShow(i)">
+          <a [routerLink]="['/blog', post.pk]" style=" font-size: 36px; font-weight: 800;">
+            <h2 class="post-title">
+              {{ post.title }}
+            </h2>
+          </a>
+          <p class="post-meta"><span style="color: #868e96">Posted by </span>
+            <a href="#" style="">{{ post.username }}</a>
+            <span style=""> on {{ post.published_date | date:'medium' }}</span></p>
+          <hr>
+        </div>
+      </div>
+
+      <div style="text-align: center;">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [rotate]="true" [pageSize]="pageSize"
+                        [ellipses]="false" [boundaryLinks]="true" style="display: inline-block;"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+
+</div>
+<ng-template #elseblock>
+  <div class="col-12 justify-content-center">
+    <app-loading></app-loading>
+  </div>
+</ng-template>
