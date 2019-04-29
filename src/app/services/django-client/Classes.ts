@@ -277,12 +277,25 @@ export class FrontPageInfo {
 
 export class Forum {
   title: string;
+  pk: number;
   description: string;
   created_date: string;
   updated: string;
+  threads: number;
+  comments: number;
+  latest: PostSum;
 }
+
+export class PostSum {
+  title: string;
+  pk: number;
+  poster: string;
+  created_date: string;
+}
+
 export class ForumCategory {
   title: string;
+  pk: number;
   description: string;
   created_date: string;
   updated: string;

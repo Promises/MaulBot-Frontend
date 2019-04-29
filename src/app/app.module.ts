@@ -71,6 +71,8 @@ import {WebSocketService} from './services/websocket/webSocket.service';
 import {WebSocketConstants} from './services/websocket/webSocketConstants';
 import {LinkifyPipe} from './services/tools/linkify.pipe';
 import { ForumComponent } from './components/layout/forum/forum.component';
+import {BrowserModule} from '@angular/platform-browser';
+import { ForumCategoryComponent } from './components/layout/forum/forum-category/forum-category.component';
 
 
 @NgModule({
@@ -85,6 +87,7 @@ import { ForumComponent } from './components/layout/forum/forum.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
     ChartsModule,
@@ -150,6 +153,7 @@ import { ForumComponent } from './components/layout/forum/forum.component';
     LoadingComponent,
     LinkifyPipe,
     ForumComponent,
+    ForumCategoryComponent,
   ],
   bootstrap: [AppComponent],
   entryComponents: [SuggestionModalContent],

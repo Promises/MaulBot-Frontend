@@ -3,6 +3,13 @@
 /* Application-wide Styles */
 @import '~highlight.js/styles/atom-one-dark.css';
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+$fa-font-path: "assets/vendor/webfonts";
+@import "assets/vendor/scss/fontawesome";
+@import "assets/vendor/scss/solid";
+@import "assets/vendor/scss/regular";
+@import "assets/vendor/scss/brands"; // OPTIONAL. Remove if you are not using this
+
+
 html {
   position: relative;
   min-height: 100%;

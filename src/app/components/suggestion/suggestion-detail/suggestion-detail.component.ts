@@ -4,6 +4,7 @@ import {DjangoClientService} from '../../../services/django-client/django-client
 import {SuggestionDetail, UpdateSuggestion} from '../../../services/django-client/Classes';
 import {ActivatedRoute} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
+import {MarkdownParserService} from '../../../services/markdown-parser/markdown-parser.service';
 
 @Component({
   selector: 'app-suggestion-detail',
@@ -35,6 +36,7 @@ export class SuggestionDetailComponent implements OnInit {
   @Input() activeModal;
 
   constructor(private route: ActivatedRoute,
+              private mdService: MarkdownParserService,
               public _authService: AuthService,
               public djangoClientService: DjangoClientService,
               private titleService: Title, private meta: Meta) {
@@ -86,6 +88,11 @@ export class SuggestionDetailComponent implements OnInit {
         this.selectedSuggestion = data2;
       });
     });
+  }
+
+
+  convert(input: string) {
+    return this.mdService.convert(input);
   }
 
   clickLink() {

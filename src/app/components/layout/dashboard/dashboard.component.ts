@@ -26,29 +26,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
   selecttedScreenshot: string;
   isProduction = environment.production;
   interval: any;
+  selectedScreenshot: string;
 
   newestMap: NewestMap;
 
 
-  constructor(public _authService: AuthService,
+  constructor(public authService: AuthService,
               private mdService: MarkdownParserService,
               private djangoClient: DjangoClientService,
               private titleService: Title,
               private meta: Meta
   ) {
-    this.setHeaderImage();
+    // this.setHeaderImage();
     this.meta.addTag({name: 'description', content: 'Home of the Warcraft 3 map: Warcraft Maul Reimagined, and Maulbot.'});
     this.meta.addTag({name: 'author', content: 'Henning Berge'});
     this.meta.addTag({name: 'author', content: 'Promises'});
     this.meta.addTag({name: 'author', content: 'runi95'});
     this.meta.addTag({name: 'keywords', content: 'Warcraft, Maul, Warcraft 3, MaulBot, botmod, reimagined, wintermaul, warcraftmaul, wcm'});
+    this.selectedScreenshot = this.screenshots[Math.floor(Math.random() * this.screenshots.length)];
+
   }
 
   ngOnInit() {
     this.titleService.setTitle('Warcraft Maul Reimagined - Maulbot');
-    this.interval = setInterval(() => {
-      this.setHeaderImage();
-    }, 2000);
+    // this.interval = setInterval(() => {
+    //   this.setHeaderImage();
+    // }, 2000);
     this.getFrontPageInfo();
     this.getFrontPageHosts();
     this.getNewestMapFile();
@@ -77,12 +80,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  setHeaderImage() {
-    const selectedScreenshot = this.screenshots[Math.floor(Math.random() * this.screenshots.length)];
+  getScreenshot() {
     if (environment.production) {
-      this.selecttedScreenshot = 'url("' + '/static/ang/' + selectedScreenshot + '")';
+      return  'url("' + '/static/ang/' + this.selectedScreenshot + '")';
     } else {
-      this.selecttedScreenshot = 'url("' + selectedScreenshot + '")';
+      return  'url("' + this.selectedScreenshot + '")';
     }
   }
 

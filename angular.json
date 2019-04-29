@@ -28,12 +28,12 @@
             ],
             "styles": [
               "src/assets/css/darkly/bootstrap.min.css",
-              "src/assets/vendor/css/fontawesome-all.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-img-crossfader/ngx-img-crossfader.css"
             ],
             "scripts": [
               "node_modules/ace-builds/src-min/theme-dracula.js",
-              "node_modules/ace-builds/src-min/ace.js",
+              "node_modules/ace-builds/src-min/ace.js"
             ],
             "es5BrowserSupport": true
           },
@@ -89,7 +89,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-img-crossfader/ngx-img-crossfader.css"
             ],
             "scripts": [],
             "assets": [

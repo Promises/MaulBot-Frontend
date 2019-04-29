@@ -1,7 +1,7 @@
-<app-admin-status-bar *ngIf="_authService.isAdmin()"></app-admin-status-bar>
+<app-admin-status-bar *ngIf="authService.isAdmin()"></app-admin-status-bar>
 <div class="row">
-  <div class="col-12" *ngIf="selecttedScreenshot">
-    <div class="dash-header" [ngStyle]="{'background-image': selecttedScreenshot}">
+  <div class="col-12" >
+    <ng-template #headerData>
       <section class="jumbotron text-center">
         <div class="container">
           <div class="row">
@@ -34,6 +34,10 @@
           </p>-->
         </div>
       </section>
+    </ng-template>
+
+    <div class="dash-header" [ngStyle]="{'background-image': getScreenshot()}">
+      <ng-container *ngTemplateOutlet="headerData"></ng-container>
     </div>
     <!--<app-game-table></app-game-table>-->
     <div class="row">

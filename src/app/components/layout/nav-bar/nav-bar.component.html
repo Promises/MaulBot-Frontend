@@ -31,7 +31,7 @@
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Suggestions">
         <a class="nav-link" routerLink="/suggestions" (click)="isNavToggle = true">
-          <i class="fal fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-scroll-old"></i>
           <span class="nav-link-text">Suggestions</span>
         </a>
       </li>
@@ -59,7 +59,7 @@
     <ul class="navbar-nav ml-auto">
 
       <!-- NOTIFICATIONS
-      <li ngbDropdown class="nav-item dropdown" placement="bottom" *ngIf="_authService.loggedIn() && notificationMenu">
+      <li ngbDropdown class="nav-item dropdown" placement="bottom" *ngIf="authService.loggedIn() && notificationMenu">
         <a [title]="notificationMenu.new +' notifications'"
            class="nav-link dropdown-toggle"
            ngbDropdownToggle>
@@ -119,11 +119,11 @@
 
       <!--{% if not user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link" (click)="_authService.verifyToken()">
+        <a class="nav-link" (click)="authService.verifyToken()">
           <i class="fa fa-fw fa-power-off"> </i>Verify Token</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="_authService.refreshToken()">
+        <a class="nav-link" (click)="authService.refreshToken()">
           <i class="fa fa-fw fa-power-off"> </i>Refresh Token</a>
       </li>
       {% else %}

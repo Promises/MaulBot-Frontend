@@ -10,7 +10,7 @@
     <!--<div class="row">-->
       <!--<div class="col-md-6">-->
         <!--<p class="lead"><a (click)="activeModal.close('Close click')" [routerLink]="['/user/profile/', selectedSuggestion.submittedby]">{{selectedSuggestion.submittedby}}</a> - {{statusOptions[selectedSuggestion.status]}} </p>-->
-        <!--<form #linkedPlayerForm="ngForm" *ngIf="_authService.isAdmin()">-->
+        <!--<form #linkedPlayerForm="ngForm" *ngIf="authService.isAdmin()">-->
           <!--<select class="form-check-inline" id="status"-->
                   <!--required-->
                   <!--[(ngModel)]="model.status" name="status">-->
@@ -34,7 +34,7 @@
     <!--<hr>-->
     <!--<p ng-bind="textFromJSON" style="white-space:pre-wrap">{{selectedSuggestion.text}}</p>-->
     <!--<hr>-->
-    <!--<div class="card my-4" *ngIf="_authService.loggedIn(); else logInToComment">-->
+    <!--<div class="card my-4" *ngIf="authService.loggedIn(); else logInToComment">-->
       <!--<app-suggestion-comment-form [pk]="selectedSuggestion.pk"-->
                                    <!--(update)="updateSelectedSuggestion($event)"></app-suggestion-comment-form>-->
     <!--</div>-->

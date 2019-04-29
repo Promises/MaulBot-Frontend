@@ -37,6 +37,7 @@
     "ng2-charts": "^2.2.2",
     "ngx-clipboard": "^12.0.0",
     "ngx-highlightjs": "^3.0.3",
+    "ngx-img-crossfader": "^1.0.1",
     "ngx-markdown": "^7.1.4",
     "rxjs": "^6.3.3",
     "time-ago-pipe": "^1.3.2",

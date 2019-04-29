@@ -29,21 +29,21 @@
         </div>
         <div class="col-md-2 section">
           <div class="card-body">
-            <p class="card-text text-muted">
-              <!--Threads: {{forum.threads}} <br>-->
-              <!--Replies: {{forum.threads}}-->
+            <p class="card-text text-center text-muted">
+              Threads: {{forum.threads}} <br>
+              Replies: {{forum.comments}}
             </p>
           </div>
         </div>
         <div class="col-md-4 section">
           <div class="card-body">
-            <!--<span class="card-text">-->
-              <!--<a routerLink="/tests">{{forum.last_post.title}}</a> </span><br>-->
-            <!--<span class="card-text">-->
-              <!--by <a [routerLink]="['/user/profile/', forum.last_post.author]">{{forum.last_post.author}}</a></span><br>-->
-            <!--<div class="card-text text-right" style="width: 100%">-->
-              <!--{{forum.last_post.post_date | date:'medium'}}-->
-            <!--</div>-->
+            <span class="card-text">
+              <a routerLink="/tests">{{forum.latest.title}}</a> </span><br>
+            <span class="card-text">
+              by <a [routerLink]="['/user/profile/', forum.latest.poster]">{{forum.latest.poster}}</a></span><br>
+            <div class="card-text text-right" style="width: 100%">
+              {{forum.latest.created_date | date:'medium'}}
+            </div>
           </div>
         </div>
       </div>

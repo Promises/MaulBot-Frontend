@@ -48,7 +48,8 @@ const routes: Routes = [
   {path: 'admin/todo', component: AdminTodosComponent, canActivate: [AdminGuard]},
 
   {path: '404', component: PageNotFoundComponent},
-  {path: 'tests', component: ForumComponent}
+  {path: 'forum', component: ForumComponent},
+  {path: 'markdown', component: ReusableComponentsComponent},
 
 
 
